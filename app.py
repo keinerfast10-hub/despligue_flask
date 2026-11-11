@@ -8,11 +8,11 @@ app = Flask(__name__)
 # Conexión con MySQL (usa variables de entorno; valores por defecto para uso local)
 def conectar():
     return mysql.connector.connect(
-        host=os.getenv("DB_HOST", "localhost"),
-        user=os.getenv("DB_USER", "root"),
-        password=os.getenv("DB_PASSWORD", ""),
+        host=os.getenv("DB_HOST", "${{MySQL.MYSQLHOST}}"),
+        user=os.getenv("DB_USER", "${{MySQL.MYSQLUSER}"),
+        password=os.getenv("DB_PASSWORD", "${{MySQL.MYSQLPASSWORD}}"),
         database=os.getenv("DB_NAME", "institucion"),
-        port=int(os.getenv("DB_PORT", "3306")),
+        port=int(os.getenv("DB_PORT", "${{MySQL.MYSQLPORT}}")),
     )
 
 
