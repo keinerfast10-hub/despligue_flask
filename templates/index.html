@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Registro de Aprendices</title>
+<style>
+body {
+font-family: Arial;
+background-color: #f2f2f2;
+padding: 30px;
+}
+.contenedor {
+background: white;
+padding: 25px;
+width: 600px;
+margin: auto;
+border-radius: 10px;
+}
+input {
+padding: 10px;
+margin: 5px;
+width: 90%;
+}
+button {
+padding: 10px 20px;
+background: #198754;
+color: white;
+border: none;
+cursor: pointer;
+}
+table {
+width: 100%;
+margin-top: 25px;
+border-collapse: collapse;
+}
+th, td {
+padding: 10px;
+border: 1px solid #ddd;
+text-align: left;
+}
+th {
+background: #198754;
+color: white;
+}
+a {
+color: red;
+}
+</style>
+</head>
+<body>
+<div class="contenedor">
+<h2>Registro de Aprendices</h2>
+<form action="/registrar" method="POST">
+<input
+type="text"
+name="nombre"
+placeholder="Nombre del aprendiz"
+required
+>
+<input
+type="email"
+name="correo"
+placeholder="Correo electrónico"
+required
+>
+<button type="submit">
+Registrar
+</button>
+</form>
+<h3>Aprendices registrados</h3>
+<table>
+<tr>
+<th>ID</th>
+<th>Nombre</th>
+<th>Correo</th>
+<th>Acción</th>
+</tr>
+{% for aprendiz in aprendices %}
+<tr>
+<td>{{ aprendiz.id }}</td>
+<td>{{ aprendiz.nombre }}</td>
+<td>{{ aprendiz.correo }}</td>
+<td>
+<a href="/eliminar/{{ aprendiz.id }}">
+Eliminar
+</a>
+</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+</body>
+</html>
