@@ -10,12 +10,13 @@ app = Flask(__name__)
 from urllib.parse import urlparse, unquote
 
 def conectar():
-    mysql_url = os.getenv("MYSQL_URL")
-
-    if not mysql_url:
-        raise ValueError("Falta configurar MYSQL_URL")
-
-    url = urlparse(mysql_url)
+    return mysql.connector.connect(
+        host=os.getenv("DB_HOST"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+        database=os.getenv("DB_NAME"),
+        port=int(os.getenv("DB_PORT", "3306"))
+    )
 
 @app.route("/")
 def inicio():
