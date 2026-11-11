@@ -6,19 +6,23 @@ from flask import Flask, render_template, request, redirect
 app = Flask(__name__)
 
 
-from urllib.parse import urlparse
+from urllib.parse import urlparse, unquote
 
 def conectar():
-    url = urlparse(os.getenv("MYSQL_URL"))
+    mysql_url = os.getenv("MYSQL_URL")
+
+    if not mysql_url:
+        raise ValueError("No existe la variable MYSQL_URL")
+
+    url = urlparse(mysql_url)
 
     return mysql.connector.connect(
         host=url.hostname,
-        user=url.username,
-        password=url.password,
+        user=unquote(url.username or ""),
+        password=unquote(url.password or ""),
         database=url.path.lstrip("/"),
         port=url.port or 3306
     )
-
 
 @app.route("/")
 def inicio():
