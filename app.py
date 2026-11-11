@@ -11,7 +11,7 @@ def conectar():
         host=os.getenv("DB_HOST", "${{MySQL.MYSQLHOST}}"),
         user=os.getenv("DB_USER", "${{MySQL.MYSQLUSER}"),
         password=os.getenv("DB_PASSWORD", "${{MySQL.MYSQLPASSWORD}}"),
-        database=os.getenv("DB_NAME", "institucion"),
+        database=os.getenv("DB_NAME", "${{MySQL.MYSQLDATABASE}}"),
         port=int(os.getenv("DB_PORT", "${{MySQL.MYSQLPORT}}")),
     )
 
