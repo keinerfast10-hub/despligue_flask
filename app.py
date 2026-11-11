@@ -6,15 +6,17 @@ from flask import Flask, render_template, request, redirect
 app = Flask(__name__)
 
 
+from urllib.parse import urlparse
+
 def conectar():
+    url = urlparse(os.getenv("MYSQL_URL"))
+
     return mysql.connector.connect(
-        option_files=None,
-        **mysql.connector.connection.MySQLConnection.config(
-            host=os.getenv("DB_HOST"),
-            user=os.getenv("DB_USER"),
-            password=os.getenv("DB_PASSWORD"),
-            database=os.getenv("DB_NAME")
-        )
+        host=url.hostname,
+        user=url.username,
+        password=url.password,
+        database=url.path.lstrip("/"),
+        port=url.port or 3306
     )
 
 
